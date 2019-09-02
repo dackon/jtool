@@ -8,6 +8,7 @@ This project implements 'Extended JSON Pointer' (EJP).
 
 ## Examples
 Giving the following two JSONs:
+
 JSON name: foo
 ```json
 {
