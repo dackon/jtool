@@ -1,0 +1,10 @@
+[{
+    "a": 1,
+    "b": "string",
+    "c": null,
+    "d": {
+        "i": 1
+    },
+    "e": [1, 2, null, false],
+    "f": true
+}, 1, true, "string", [5, 5, 99], null]

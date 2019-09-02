@@ -1,0 +1,39 @@
+{
+    "if": {
+        "type": "object",
+        "required": ["a", "b"]
+    },
+    "then": {
+        "type": "object",
+        "properties": {
+            "b": {
+                "type": "object",
+                "if": {
+                    "type": "object",
+                    "properties": {
+                        "b1": {
+                            "type": "number"
+                        }
+                    }
+                },
+                "then": {
+                    "type": "object",
+                    "properties": {
+                        "b1": {
+                            "type": "number",
+                            "maxinum": 15
+                        }
+                    }
+                },
+                "else": {
+                    "type": "object",
+                    "required": ["b1", "b2"]
+                }
+            }
+        }
+    },
+    "else": {
+        "type": "object",
+        "required": ["d"]
+    }
+}

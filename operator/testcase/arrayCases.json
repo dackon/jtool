@@ -1,0 +1,25 @@
+[{
+    "name": "$loop test",
+    "enable": true,
+    "cases": [{
+        "data": {
+            "nums": {
+                "$loop": [
+                    [1, 15.23521, -90], "$abs"
+                ]
+            }
+        },
+        "expected": {
+            "nums": [1, 15.23521, 90]
+        }
+    }, {
+        "data": {
+            "nums": {
+                "$loop": [
+                    [1, 15.23521, -90, "abc"], "$abs"
+                ]
+            }
+        },
+        "error": true
+    }]
+}]

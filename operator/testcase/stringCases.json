@@ -1,0 +1,104 @@
+[{
+    "name": "$concat test",
+    "enable": true,
+    "cases": [{
+        "data": {
+            "a": {
+                "$concat": ["abc", "eft", ""]
+            },
+            "b": {
+                "$concat": ["abc", 1, true, null]
+            }
+        },
+        "expected": {
+            "a": "abceft",
+            "b": "abc1truenull"
+        }
+    }, {
+        "comment": "cannnot convert object/array to string",
+        "data": {
+            "a": {
+                "$concat": ["abc", "eft", {
+                    "x": 1
+                }]
+            }
+        },
+        "error": true
+    }]
+}, {
+    "name": "$sha256 test",
+    "enable": true,
+    "cases": [{
+        "data": {
+            "a": {
+                "$sha256": "abc"
+            }
+        },
+        "expected": {
+            "a": "ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad"
+        }
+    }, {
+        "data": {
+            "a": {
+                "$sha256": 1
+            }
+        },
+        "error": true
+    }]
+}, {
+    "name": "$toLower test",
+    "enable": true,
+    "cases": [{
+        "data": {
+            "a": {
+                "$toLower": "aB123zC"
+            },
+            "b": {
+                "$toLower": "1a2a3a4a"
+            },
+            "c": {
+                "$toLower": ""
+            }
+        },
+        "expected": {
+            "a": "ab123zc",
+            "b": "1a2a3a4a",
+            "c": ""
+        }
+    }, {
+        "data": {
+            "a": {
+                "$toLower": 1
+            }
+        },
+        "error": true
+    }]
+}, {
+    "name": "$toUpper test",
+    "enable": true,
+    "cases": [{
+        "data": {
+            "a": {
+                "$toUpper": "aB123zC"
+            },
+            "b": {
+                "$toUpper": "1A2A3A4A"
+            },
+            "c": {
+                "$toUpper": ""
+            }
+        },
+        "expected": {
+            "a": "AB123ZC",
+            "b": "1A2A3A4A",
+            "c": ""
+        }
+    }, {
+        "data": {
+            "a": {
+                "$toUpper": 1
+            }
+        },
+        "error": true
+    }]
+}]

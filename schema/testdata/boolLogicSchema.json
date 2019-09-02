@@ -1,0 +1,36 @@
+{
+    "allOf": [{
+        "type": "object",
+        "required": ["a", "b"]
+    }, {
+        "type": "object",
+        "properties": {
+            "a": {
+                "type": "object"
+            },
+            "b": {
+                "type": "object",
+                "properties": {
+                    "b2": {
+                        "type": "array",
+                        "items": [{
+                            "type": "string"
+                        }, {
+                            "type": "number"
+                        }]
+                    }
+                }
+            }
+        }
+    }],
+    "anyOf": [{
+        "type": "number"
+    }, {
+        "type": "array"
+    }, {
+        "type": "object"
+    }],
+    "not": {
+        "type": "number"
+    }
+}

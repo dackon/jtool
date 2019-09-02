@@ -1,0 +1,35 @@
+{
+    "type": "object",
+    "maxProperites": 5,
+    "minProperties": 3,
+    "required": ["a", "b", "c"],
+    "properties": {
+        "a": {
+            "type": "object"
+        },
+        "c": {
+            "type": "array"
+        }
+    },
+    "patternProperties": {
+        "^b$": {
+            "type": "object",
+            "requried": ["b1", "b2"]
+        }
+    },
+    "additionalProperties": {
+        "type": "null"
+    },
+    "dependencies": {
+        "a": ["b", "c"],
+        "c": {
+            "type": "object"
+        }
+    },
+    "propertyNames": {
+        "a": {
+            "type": "string",
+            "minLength": 1
+        }
+    }
+}

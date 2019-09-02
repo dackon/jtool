@@ -1,0 +1,11 @@
+{
+    "a": {
+        "type": "string",
+        "pattern": "^[a-z]+[0-9]*$"
+    },
+    "b": {
+        "type": "string",
+        "minLength": 0,
+        "maxLength": 0
+    }
+}

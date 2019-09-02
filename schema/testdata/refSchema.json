@@ -1,0 +1,87 @@
+{
+    "definitions": {
+        "string": {
+            "$id": "#string",
+            "type": "string",
+            "pattern": "^[a-z]+$"
+        },
+        "arr": {
+            "$id": "/arr",
+            "type": "array",
+            "items": [{
+                "$id": "#number",
+                "type": "number"
+            }, {
+                "$id": "#object",
+                "type": "object"
+            }, {
+                "type": "array"
+            }, {
+                "$id": "#null",
+                "type": "null"
+            }, {
+                "$id": "#array",
+                "type": "array"
+            }]
+        }
+    },
+    "type": "object",
+    "properties": {
+        "a": {
+            "type": "object",
+            "proterties": {
+                "a1": {
+                    "type": "number"
+                },
+                "a2": {
+                    "type": "object",
+                    "required": ["a21"]
+                },
+                "a3": {
+                    "type": "null"
+                }
+            }
+        },
+        "b": {
+            "type": "object",
+            "properties": {
+                "b1": {
+                    "$ref": "arr#number"
+                },
+                "b2": {
+                    "$ref": "arr#/items/1"
+                },
+                "b4": {
+                    "$ref": "#/properties/a"
+                },
+                "b5": {
+                    "$ref": "#/properties/b/properties/b2"
+                }
+            }
+        },
+        "c": {
+            "type": "object",
+            "$id": "c",
+            "definitions": {
+                "num": {
+                    "type": "number"
+                },
+                "obj": {
+                    "$id": "#obj",
+                    "type": "object"
+                }
+            },
+            "properties": {
+                "c1": {
+                    "$ref": "#/definitions/num"
+                },
+                "c2": {
+                    "$ref": "#obj"
+                },
+                "c3": {
+                    "$ref": "arr#array"
+                }
+            }
+        }
+    }
+}

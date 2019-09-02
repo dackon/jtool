@@ -1,0 +1,13 @@
+{
+    "type": "object",
+    "properties": {
+        "a": {
+            "type": "number",
+            "multipleOf": 5.1,
+            "minimum": 15.3,
+            "maximum": 20,
+            "exclusiveMinimum": 15.2,
+            "exclusiveMaximum": 19.9
+        }
+    }
+}

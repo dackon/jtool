@@ -1,0 +1,155 @@
+[{
+    "name": "$sum test",
+    "enable": true,
+    "cases": [{
+            "data": {
+                "float": {
+                    "$sum": [1, 15.23521, -90]
+                },
+                "int": {
+                    "$sum": [1000, 12038, 3]
+                }
+            },
+            "expected": {
+                "float": -73.76479,
+                "int": 13041
+            }
+        }, {
+            "data": [{
+                "$sum": [1, 2]
+            }, 4, 5],
+            "expected": [3, 4, 5]
+        },
+        {
+            "data": {
+                "float": {
+                    "$sum": [1, 15.23521, -90, true]
+                }
+            },
+            "error": true
+        }, {
+            "data": {
+                "int": {
+                    "$sum": [1000, 12038, 3, "h"]
+                }
+            },
+            "error": true
+        }
+    ]
+}, {
+    "name": "$abs test",
+    "enable": true,
+    "cases": [{
+        "data": {
+            "a": {
+                "$abs": -15.123
+            },
+            "b": {
+                "$abs": 13
+            },
+            "c": {
+                "$abs": -0.1
+            },
+            "d": {
+                "$abs": -10
+            }
+        },
+        "expected": {
+            "a": 15.123,
+            "b": 13,
+            "c": 0.1,
+            "d": 10
+        }
+    }, {
+        "data": {
+            "d": {
+                "$abs": false
+            }
+        },
+        "error": true
+    }]
+}, {
+    "name": "$ceil test",
+    "enable": true,
+    "cases": [{
+        "data": {
+            "a": {
+                "$ceil": -15.123
+            },
+            "b": {
+                "$ceil": -13
+            },
+            "c": {
+                "$ceil": 1.1
+            },
+            "d": {
+                "$ceil": 10
+            }
+        },
+        "expected": {
+            "a": -15,
+            "b": -13,
+            "c": 2,
+            "d": 10
+        }
+    }, {
+        "data": {
+            "a": {
+                "$ceil": "-15.123"
+            }
+        },
+        "error": true
+    }]
+}, {
+    "name": "$divide test",
+    "enable": true,
+    "cases": [{
+        "data": {
+            "a": {
+                "$divide": [100, 2, 1, 3]
+            },
+            "b": {
+                "$divide": [1, 3]
+            }
+        },
+        "expected": {
+            "a": 50.0,
+            "b": 0.3333333333333
+        }
+    }, {
+        "data": {
+            "a": {
+                "$divide": [100, 0, 1, 3]
+            }
+        },
+        "error": true
+    }, {
+        "data": {
+            "a": {
+                "$divide": [100, 0.00000, 1, 3]
+            }
+        },
+        "error": true
+    }, {
+        "data": {
+            "a": {
+                "$divide": ["1", 0.00000, 1, 3]
+            }
+        },
+        "error": true
+    }, {
+        "data": {
+            "a": {
+                "$divide": [1, "1.0", 1, 3]
+            }
+        },
+        "error": true
+    }, {
+        "data": {
+            "a": {
+                "$divide": [1, 1, "abc", 3]
+            }
+        },
+        "error": false
+    }]
+}]

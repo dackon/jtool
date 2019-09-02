@@ -1,0 +1,25 @@
+[{
+    "name": "$dateAddMS test",
+    "enable": true,
+    "cases": [{
+        "data": {
+            "date1": {
+                "$dateAddMS": ["2011-11-11 00:00:00", 1000]
+            },
+            "date2": {
+                "$dateAddMS": ["2019-06-10T06:48:59.124Z", 100]
+            }
+        },
+        "expected": {
+            "date1": "2011-11-11 00:00:01",
+            "date2": "2019-06-10T06:48:59Z"
+        }
+    }, {
+        "data": {
+            "date1": {
+                "$dateAddMS": ["19-11-11 00:00:00", 1000]
+            }
+        },
+        "error": true
+    }]
+}]
