@@ -12,7 +12,7 @@ JSON template is used to create target JSON from multiple JSONs (aka JSON pool).
 JSON template must be a valid JSON. It uses ['Extended JSON Pointer'](../ejp) to reference the data source. If the value of one field is string, and the string's first byte is 0x2A('\*', in memory of C), the value will be treated as 'Extented JSON Pointer', e.g., "\*foo/a/c". If a plain string starts with 0x2A, it must be escaped with double-anti-slash, e.g., "\*abc" -> "\\\\*abc". 
 
 #### Wildcard Extented JSON Pointer
-In JSON template, I use '$' as wildcard in EJP to reference each item in array. So, if you have a key '$' in JSON, the key must be encoded in the EJP ($ -> ~2). If one EJP has one wildcard '$', I call it one dimensional EJP (1-D EJP), e.g., 'foo/a/$/c'"; if it has N wildcard '$'s, I call it N dimensional EJP (N-D EJP). 
+In JSON template, I use '$' as wildcard in EJP to reference each item in array. So, if you have a key '$' in JSON, the key must be encoded in the EJP ($ -> ~2). If one EJP has one wildcard '$', I call it one dimensional EJP (1-D EJP), e.g., 'foo/a/$/c'. If it has N wildcard '$'s, I call it N dimensional EJP (N-D EJP). 
 
 #### Array naming
 For the following multi-dimensional array:
