@@ -42,6 +42,8 @@ After executing the template, we can get the following JSON:
 }
 ```
 
+Read template [doc](./template) for more details.
+
 ## Playground
 1. [template](https://play.golang.org/p/3JcUvPEvur7)
 2. [template & operator](https://play.golang.org/p/GWHASNc_BhN)
