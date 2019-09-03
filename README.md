@@ -11,7 +11,7 @@ Giving JSON 'foo':
 ```json
 {
     "a1": 1,
-    "a2":[1, 2, 3]
+    "a2": [1, 2, 3]
 }
 ```
 
@@ -36,8 +36,8 @@ Giving JSON template:
 After executing the template, we can get the following JSON:
 ```json
 {
-  "f1": [1,"hello","world"],
-  "f2": [{"f21": 1,"f22": "a"}, {"f21": 2,"f22": "b"}, {"f21": 3}],
+  "f1": [1, "hello", "world"],
+  "f2": [{"f21": 1, "f22": "a"}, {"f21": 2, "f22": "b"}, {"f21": 3}],
   "f3": "b"
 }
 ```
