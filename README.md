@@ -29,7 +29,7 @@ Giving JSON template:
 {
     "f1": ["*foo/a1", "*bar/b1", "*bar/b2"],
     "f2": [{"f21": "*foo/a2/$", "f22": "*bar/b3/$"}],
-    "f3": "*bar/b3/2"
+    "f3": "*bar/b3/1"
 }
 ```
 
@@ -38,7 +38,7 @@ After executing the template, we can get the following JSON:
 {
   "f1": [1,"hello","world"],
   "f2": [{"f21": 1,"f22": "a"}, {"f21": 2,"f22": "b"}, {"f21": 3}],
-  "f3": "c"
+  "f3": "b"
 }
 ```
 
