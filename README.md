@@ -6,6 +6,42 @@ This project implemented a set of tools to create, manipulate and validate JSONs
 * [JSON operator](./operator) - Manipulate JSON
 
 
-# Playground
+## Example
+Giving JSON 'foo':
+```json
+{
+    "a1": 1,
+    "a2":[1, 2, 3]
+}
+```
+
+Giving JSON 'bar':
+```json
+{
+    "b1": "hello",
+    "b2": "world",
+    "b3": ["a", "b"]
+}
+```
+
+Giving JSON template:
+```json
+{
+    "f1": ["*foo/a1", "*bar/b1", "*bar/b2"],
+    "f2": [{"f21": "*foo/a2/$", "f22": "*bar/b3/$"}],
+    "f3": "*bar/b3/2"
+}
+```
+
+After executing the template, we can get the following JSON:
+```json
+{
+  "f1": [1,"hello","world"],
+  "f2": [{"f21": 1,"f22": "a"}, {"f21": 2,"f22": "b"}, {"f21": 3}],
+  "f3": "c"
+}
+```
+
+## Playground
 1. [template](https://play.golang.org/p/3JcUvPEvur7)
 2. [template & operator](https://play.golang.org/p/GWHASNc_BhN)
