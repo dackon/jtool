@@ -8,6 +8,9 @@
 # Introduction
 JSON template is used to create target JSON from multiple JSONs (aka JSON pool).
 
+## JSON pool
+JSON pool is a collection of JSONs, all JSONs in it have a unique name. So, we can use 'name' as key to retrieve JSON from it.
+
 ## JSON template definition
 JSON template must be a valid JSON. It uses ['Extended JSON Pointer'](../ejp) to reference the data source. If the value of one field is string, and the string's first byte is 0x2A('\*', in memory of C), the value will be treated as 'Extented JSON Pointer', e.g., "\*foo/a/c". If a plain string starts with 0x2A, it must be escaped with double-anti-slash, e.g., "\*abc" -> "\\\\*abc". 
 
