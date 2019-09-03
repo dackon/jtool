@@ -36,9 +36,9 @@ Giving JSON template:
 After executing the template, we can get the following JSON:
 ```json
 {
-  "f1": [1, "hello", "world"],
-  "f2": [{"f21": 1, "f22": "a"}, {"f21": 2, "f22": "b"}, {"f21": 3}],
-  "f3": "b"
+    "f1": [1, "hello", "world"],
+    "f2": [{"f21": 1, "f22": "a"}, {"f21": 2, "f22": "b"}, {"f21": 3}],
+    "f3": "b"
 }
 ```
 
