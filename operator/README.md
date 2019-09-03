@@ -12,7 +12,7 @@
 This package implemented lots of operators to manipulate JSON values. Currently, only a few operators were implemented.
 
 ## Example
-Giving JSON:
+Given JSON:
 ```json
 {
     "total": {
