@@ -26,7 +26,7 @@ For the following multi-dimensional array:
                 1st array     2nd array        Nth array
                 
 #### Iterating wildcard EJP
-For 1-D EJP, e.g., 'foo/a/$/x', iterating the EJP means replace the '$' to 0, 1, 2 ... to get the data from source JSON, until no data can be referenced, for example, giving JSON 'foo':
+For 1-D EJP, e.g., 'foo/a/$/x', iterating the EJP means replace the '$' to 0, 1, 2 ... to get the data from source JSON, until no data can be referenced, for example, given JSON 'foo':
 ```json
 {
     "a":[{"x":0},{"x":1}]
@@ -48,7 +48,7 @@ For N-D EJP, iterating the EJP means replace the '$'s to (0,0,...,0), ... (A1,A2
 - **Rule 7.** If Mth & (M+1)th array's length are both 1 and are both iterable, Mth array has X-D EJP, (M+1)th array has Y-D EJP, if (Y-X)< 1, the (M+1)th array will not be genrated.
 
 #### Simple EJP examples
-Giving JSON 'moo':
+Given JSON 'moo':
 ```json
 {
     "a": {"a1":1},
@@ -67,7 +67,7 @@ Giving JSON 'moo':
 | 7  | "\*moo/b/1/b1"       | 3               | Rule 2 |
 
 #### 1 dimensional EJP examples
-Giving JSON 'moo':
+Given JSON 'moo':
 ```json
 {
     "a": [2,3,4]
