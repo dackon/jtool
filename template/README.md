@@ -122,7 +122,7 @@ Here's one valid JSON templates:
 - Field 'c' references JSON 'bar', which is an object containing key '$'.
 - Field 'd' is a plain string '\*comments\*', so it must be escaped to '\\\\*comments\*'.
 
-Giving the following JSON pool:
+Given the following JSON pool:
 
 JSON name: foo
 ```json
