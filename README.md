@@ -42,3 +42,4 @@ Please read template [doc](./template) for more details.
 ## Playground
 1. [template](https://play.golang.org/p/3JcUvPEvur7)
 2. [template & operator](https://play.golang.org/p/GWHASNc_BhN)
+3. [template with 2D array](https://play.golang.org/p/fsmTos14Kdo)
