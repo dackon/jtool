@@ -9,6 +9,25 @@ import (
 	"github.com/dackon/jtool/jvalue"
 )
 
+var (
+	gFMTFuncMap map[string]FormatFunc
+)
+
+func init() {
+	gFMTFuncMap = make(map[string]FormatFunc)
+}
+
+// RegisterFormatValidateFunc ...
+func RegisterFormatValidateFunc(format string, f FormatFunc) error {
+	_, ok := gFMTFuncMap[format]
+	if ok {
+		return fmt.Errorf("function for format '%s' already exists", format)
+	}
+
+	gFMTFuncMap[format] = f
+	return nil
+}
+
 // Schema ...
 type Schema struct {
 	kind       schemaKind
@@ -125,7 +144,7 @@ func parse(key string, jv *jvalue.V, parent *Schema, root *Schema) (
 		return schema, nil
 	}
 
-	return nil, fmt.Errorf("failed to parse schema")
+	return nil, fmt.Errorf("failed to parse schema, key is %s", key)
 }
 
 // resolveRef resolves $ref in schema. revArr is used to detect circle $ref.
@@ -242,18 +261,6 @@ func (s *Schema) MatchJValue(jv *jvalue.V) error {
 	}
 
 	panic("Match must not be here")
-}
-
-func (s *Schema) isValidJSONValue(jv *jvalue.V) error {
-	if s.kind == schemaBool {
-		if s.boolValue == true {
-			return nil
-		}
-
-		return fmt.Errorf("not valid json value. schema is %s", s.key)
-	}
-
-	return s.schemaImpl.match(jv)
 }
 
 func (s *Schema) getSchema() (*Schema, error) {

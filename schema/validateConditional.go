@@ -66,9 +66,9 @@ func (cv *condValidator) doValidate(jv *jvalue.V) (err error) {
 		return nil
 	}
 
-	if err = cv.cdlIf.isValidJSONValue(jv); err != nil {
-		return cv.cdlElse.isValidJSONValue(jv)
+	if err = cv.cdlIf.MatchJValue(jv); err != nil {
+		return cv.cdlElse.MatchJValue(jv)
 	}
 
-	return cv.cdlThen.isValidJSONValue(jv)
+	return cv.cdlThen.MatchJValue(jv)
 }

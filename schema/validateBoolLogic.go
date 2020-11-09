@@ -185,7 +185,7 @@ func (bv *boolLogicValidator) vAllOf(jv *jvalue.V) (err error) {
 	}
 
 	for i := 0; i < len(bv.allOf); i++ {
-		err = bv.allOf[i].isValidJSONValue(jv)
+		err = bv.allOf[i].MatchJValue(jv)
 		if err != nil {
 			return err
 		}
@@ -200,7 +200,7 @@ func (bv *boolLogicValidator) vAnyOf(jv *jvalue.V) (err error) {
 	}
 
 	for i := 0; i < len(bv.anyOf); i++ {
-		if err = bv.anyOf[i].isValidJSONValue(jv); err == nil {
+		if err = bv.anyOf[i].MatchJValue(jv); err == nil {
 			return nil
 		}
 	}
@@ -216,7 +216,7 @@ func (bv *boolLogicValidator) vOneOf(jv *jvalue.V) (err error) {
 
 	count := 0
 	for i := 0; i < len(bv.oneOf); i++ {
-		if err = bv.oneOf[i].isValidJSONValue(jv); err == nil {
+		if err = bv.oneOf[i].MatchJValue(jv); err == nil {
 			count++
 		}
 
@@ -239,7 +239,7 @@ func (bv *boolLogicValidator) vNot(jv *jvalue.V) (err error) {
 		return nil
 	}
 
-	if err = bv.not.isValidJSONValue(jv); err == nil {
+	if err = bv.not.MatchJValue(jv); err == nil {
 		return fmt.Errorf("failed to match not. Schema is %s",
 			bv.schemaImpl.Schema.key)
 	}

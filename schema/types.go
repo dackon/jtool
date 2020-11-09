@@ -13,3 +13,6 @@ type validatorInf interface {
 	loadValidator() error
 	doValidate(jv *jvalue.V) error
 }
+
+// FormatFunc ...
+type FormatFunc func(*jvalue.V) error

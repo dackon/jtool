@@ -6,6 +6,8 @@ import (
 	"io/ioutil"
 	"os"
 	"testing"
+
+	"github.com/dackon/jtool/jvalue"
 )
 
 func doTest(jname, sname string, t *testing.T) {
@@ -28,6 +30,19 @@ func doTest(jname, sname string, t *testing.T) {
 	if err != nil {
 		t.Fatalf("schema file is %s. failed to match. Err is %s.", sname, err)
 	}
+}
+
+func formatIDValidator(jv *jvalue.V) error {
+	str, err := jv.GetString()
+	if err != nil {
+		return fmt.Errorf("jv is not string")
+	}
+
+	if len(str) != 4 {
+		return fmt.Errorf("bad length")
+	}
+
+	return nil
 }
 
 func TestArray(t *testing.T) {
@@ -68,6 +83,11 @@ func TestString(t *testing.T) {
 
 func TestType(t *testing.T) {
 	doTest("./testdata/type.json", "./testdata/typeSchema.json", t)
+}
+
+func TestFormat(t *testing.T) {
+	RegisterFormatValidateFunc("id", formatIDValidator)
+	doTest("./testdata/format.json", "./testdata/formatSchema.json", t)
 }
 
 type testData struct {
