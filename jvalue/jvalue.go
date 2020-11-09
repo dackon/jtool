@@ -13,6 +13,11 @@ import (
 type V struct {
 	JType jutil.JType
 	Value interface{}
+
+	Parent *V
+
+	KeyInParent        string
+	ArrayIndexInParent int
 }
 
 // trimRaw deletes the leading and trailing spaces.
@@ -59,7 +64,17 @@ func ParseJSON(raw json.RawMessage) (*V, error) {
 		return nil, ErrBadParam
 	}
 
-	jv := &V{}
+	return parseJSON(raw, nil, "", -1)
+}
+
+func parseJSON(raw json.RawMessage, parent *V, keyInParent string,
+	arrIdxInParent int) (*V, error) {
+
+	jv := &V{
+		Parent:             parent,
+		KeyInParent:        keyInParent,
+		ArrayIndexInParent: arrIdxInParent,
+	}
 	switch raw[0] {
 	case '{':
 		jv.JType = jutil.JTObject
@@ -71,7 +86,7 @@ func ParseJSON(raw json.RawMessage) (*V, error) {
 
 		mv := make(map[string]*V, len(val))
 		for kval, vval := range val {
-			tv, err := ParseJSON(vval)
+			tv, err := parseJSON(vval, jv, kval, -1)
 			if err != nil {
 				return nil, err
 			}
@@ -89,8 +104,8 @@ func ParseJSON(raw json.RawMessage) (*V, error) {
 		}
 
 		av := make([]*V, 0, len(val))
-		for _, vval := range val {
-			tv, err := ParseJSON(vval)
+		for idx, vval := range val {
+			tv, err := parseJSON(vval, jv, "", idx)
 			if err != nil {
 				return nil, err
 			}
@@ -100,23 +115,36 @@ func ParseJSON(raw json.RawMessage) (*V, error) {
 	case '"':
 		// Do not need to check whether the last char is '"' or not, because
 		// the raw is from json.Unmarshal().
-		jv.JType = jutil.JTString
-		jv.Value = string(raw[1 : len(raw)-1])
-	case 't', 'f':
-		jv.JType = jutil.JTBoolean
-		str := string(raw)
-		if str == "true" {
-			jv.Value = true
-		} else if str == "false" {
-			jv.Value = false
-		} else {
-			return nil, fmt.Errorf("bad boolean value %s", str)
+		var s string
+		err := json.Unmarshal(raw, &s)
+		if err != nil {
+			return nil, err
 		}
+
+		jv.JType = jutil.JTString
+		jv.Value = s
+
+	case 't', 'f':
+		var b bool
+		err := json.Unmarshal(raw, &b)
+		if err != nil {
+			return nil, err
+		}
+		jv.JType = jutil.JTBoolean
+		jv.Value = b
+
 	case 'n':
-		jv.JType = jutil.JTNull
-		if string(raw) != "null" {
+		var v interface{}
+		err := json.Unmarshal(raw, &v)
+		if err != nil {
+			return nil, err
+		}
+
+		if v != nil {
 			return nil, fmt.Errorf("bad null %s", raw)
 		}
+		jv.JType = jutil.JTNull
+
 	default:
 		i, err := strconv.ParseInt(string(raw), 10, 64)
 		if err == nil {
@@ -435,6 +463,44 @@ func (v *V) GetArrayLen(jp *ejp.ExJSONPointer) int {
 		}
 	}
 	return 0
+}
+
+func (v *V) GetJSONPointer() string {
+	node := v
+	jp := ""
+	for node != nil {
+		if node.Parent != nil {
+			if jp == "" {
+				switch node.Parent.JType {
+				case jutil.JTArray:
+					jp = fmt.Sprintf("/%d", node.ArrayIndexInParent)
+				case jutil.JTObject:
+					jp = fmt.Sprintf("/%s", EncodeJSONKey(node.KeyInParent))
+				default:
+					panic("must not be here. Type is " +
+						string(node.Parent.JType))
+				}
+			} else {
+				switch node.Parent.JType {
+				case jutil.JTArray:
+					jp = fmt.Sprintf("/%d%s", node.ArrayIndexInParent, jp)
+				case jutil.JTObject:
+					jp = fmt.Sprintf("/%s%s",
+						EncodeJSONKey(node.KeyInParent), jp)
+				default:
+					panic("must not be here. Type is " +
+						string(node.Parent.JType))
+				}
+			}
+		}
+
+		node = node.Parent
+	}
+
+	if jp == "" {
+		return "#"
+	}
+	return fmt.Sprintf("#%s", jp)
 }
 
 // Marshal ...

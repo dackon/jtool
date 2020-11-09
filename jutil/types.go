@@ -31,5 +31,5 @@ var GJSONTypeArr = []struct {
 
 // Constants.
 const (
-	EPSILON = 0.00000001
+	EPSILON = 1e-9
 )

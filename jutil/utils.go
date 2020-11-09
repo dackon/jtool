@@ -35,3 +35,26 @@ func KeyToArrayIndex(s string) (int, error) {
 func FloatEquals(a, b float64) bool {
 	return (a-b) < EPSILON && (b-a) < EPSILON
 }
+
+// String ...
+func (t JType) String() string {
+	switch t {
+	case JTNull:
+		return "null"
+	case JTBoolean:
+		return "boolean"
+	case JTObject:
+		return "object"
+	case JTArray:
+		return "array"
+	case JTNumber:
+		return "number"
+	case JTString:
+		return "string"
+	case JTInteger:
+		return "integer"
+	case JTNone:
+		return "NONE"
+	}
+	panic("must not be here")
+}
