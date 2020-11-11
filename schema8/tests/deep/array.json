@@ -1,0 +1,76 @@
+[{
+    "description": "",
+    "schema": {
+        "type": "array",
+        "items": [{
+            "type": "object",
+            "properties": {
+                "a": {
+                    "type": "number"
+                },
+                "b": {
+                    "type": "string"
+                },
+                "c": {
+                    "type": "null"
+                },
+                "d": {
+                    "type": "object",
+                    "properites": {
+                        "i": {
+                            "type": "number"
+                        }
+                    }
+                },
+                "e": {
+                    "type": "array",
+                    "items": [{
+                        "type": "number"
+                    }, {
+                        "type": "number"
+                    }, {
+                        "type": "null"
+                    }],
+                    "additionalItems": {
+                        "type": "boolean"
+                    },
+                    "maxItems": 4,
+                    "minItems": 1,
+                    "uniqueItems": true,
+                    "contains": {
+                        "type": "null"
+                    }
+                }
+            }
+        }, {
+            "type": "number"
+        }, {
+            "type": "boolean"
+        }, {
+            "type": "string"
+        }, {
+            "type": "array",
+            "items": {
+                "type": "number"
+            },
+            "uniqueItems": false
+        }],
+        "additionalItems": {
+            "type": "null"
+        }
+    },
+    "tests": [{
+        "description": "",
+        "data": [{
+            "a": 1,
+            "b": "string",
+            "c": null,
+            "d": {
+                "i": 1
+            },
+            "e": [1, 2, null, false],
+            "f": true
+        }, 1, true, "string", [5, 5, 99], null],
+        "valid": true
+    }]
+}]

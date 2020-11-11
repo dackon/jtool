@@ -1,0 +1,22 @@
+[{
+    "description": "",
+    "schema": {
+        "a": {
+            "type": "string",
+            "pattern": "^[a-z]+[0-9]*$"
+        },
+        "b": {
+            "type": "string",
+            "minLength": 0,
+            "maxLength": 0
+        }
+    },
+    "tests": [{
+        "description": "",
+        "data": {
+            "a": "abcd123232232",
+            "b": ""
+        },
+        "valid": true
+    }]
+}]

@@ -1,0 +1,122 @@
+[{
+    "description": "",
+    "schema": {
+        "$defs": {
+            "string": {
+                "$anchor": "string",
+                "type": "string",
+                "pattern": "^[a-z]+$"
+            },
+            "arr": {
+                "$id": "/arr",
+                "type": "array",
+                "items": [{
+                    "$anchor": "number",
+                    "type": "number"
+                }, {
+                    "$anchor": "object",
+                    "type": "object"
+                }, {
+                    "type": "array"
+                }, {
+                    "$anchor": "null",
+                    "type": "null"
+                }, {
+                    "$anchor": "array",
+                    "type": "array"
+                }]
+            }
+        },
+        "type": "object",
+        "properties": {
+            "a": {
+                "type": "object",
+                "proterties": {
+                    "a1": {
+                        "type": "number"
+                    },
+                    "a2": {
+                        "type": "object",
+                        "required": ["a21"]
+                    },
+                    "a3": {
+                        "type": "null"
+                    }
+                }
+            },
+            "b": {
+                "type": "object",
+                "properties": {
+                    "b1": {
+                        "$ref": "arr#number"
+                    },
+                    "b2": {
+                        "$ref": "arr#/items/1"
+                    },
+                    "b4": {
+                        "$ref": "#/properties/a"
+                    },
+                    "b5": {
+                        "$ref": "#/properties/b/properties/b2"
+                    }
+                }
+            },
+            "c": {
+                "type": "object",
+                "$id": "c",
+                "$defs": {
+                    "num": {
+                        "type": "number"
+                    },
+                    "obj": {
+                        "$anchor": "obj",
+                        "type": "object"
+                    }
+                },
+                "properties": {
+                    "c1": {
+                        "$ref": "#/$defs/num"
+                    },
+                    "c2": {
+                        "$ref": "#obj"
+                    },
+                    "c3": {
+                        "$ref": "arr#array"
+                    }
+                }
+            }
+        }
+    },
+    "tests": [{
+        "description": "",
+        "data": {
+            "a": {
+                "a1": 15,
+                "a2": {
+                    "a21": "a",
+                    "a22": "b",
+                    "a23": 1
+                },
+                "a3": "null"
+            },
+            "b": {
+                "b1": 333,
+                "b2": {
+                    "b21": "string"
+                },
+                "b3": ["string", 15, ["a", "b", "c"]],
+                "b4": {
+                    "b41": 12
+                },
+                "b5": {}
+            },
+            "c": {
+                "c1": 111,
+                "c2": {},
+                "c3": []
+            },
+            "d": null
+        },
+        "valid": true
+    }]
+}]

@@ -1,0 +1,61 @@
+[{
+    "description": "object",
+    "schema": {
+        "type": "object",
+        "maxProperites": 5,
+        "minProperties": 3,
+        "required": ["a", "b", "c"],
+        "properties": {
+            "a": {
+                "type": "object"
+            },
+            "c": {
+                "type": "array"
+            }
+        },
+        "patternProperties": {
+            "^b$": {
+                "type": "object",
+                "requried": ["b1", "b2"]
+            }
+        },
+        "additionalProperties": {
+            "type": "null"
+        },
+        "dependencies": {
+            "a": ["b", "c"],
+            "c": {
+                "type": "object"
+            }
+        },
+        "propertyNames": {
+            "a": {
+                "type": "string",
+                "minLength": 1
+            }
+        }
+    },
+    "tests": [{
+        "description": "object",
+        "data": {
+            "a": {
+                "a1": 15,
+                "a2": {
+                    "a11": "a",
+                    "a12": "b",
+                    "a13": 1
+                },
+                "a3": "null"
+            },
+            "b": {
+                "b1": {
+                    "b11": "string"
+                },
+                "b2": ["string", 15, ["a", "b", "c"]]
+            },
+            "c": ["a", "b", "c"],
+            "d": null
+        },
+        "valid": true
+    }]
+}]

@@ -1,0 +1,62 @@
+[{
+    "description": "",
+    "schema": {
+        "type": "object",
+        "properties": {
+            "a": {
+                "type": ["string", "number"]
+            },
+            "b": {
+                "type": ["string", "number"]
+            },
+            "c": {
+                "type": ["string", "null"]
+            },
+            "d": {
+                "type": ["object", "number"]
+            },
+            "e": {
+                "type": ["boolean", "null"]
+            },
+            "f": {
+                "type": ["array", "object"]
+            }
+        },
+        "allOf": [{
+
+            "type": "object",
+            "properties": {
+                "a": {
+                    "type": "string"
+                },
+                "b": {
+                    "type": "number"
+                },
+                "c": {
+                    "type": "null"
+                },
+                "d": {
+                    "type": "object"
+                },
+                "e": {
+                    "type": "boolean"
+                },
+                "f": {
+                    "type": "array"
+                }
+            }
+        }]
+    },
+    "tests": [{
+        "description": "",
+        "data": {
+            "a": "string",
+            "b": 12,
+            "c": null,
+            "d": {},
+            "e": true,
+            "f": []
+        },
+        "valid": true
+    }]
+}]

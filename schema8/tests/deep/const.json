@@ -1,0 +1,46 @@
+[{
+    "description": "",
+    "schema": {
+        "type": "object",
+        "properties": {
+            "a": {
+                "const": 2
+            },
+            "b": {
+                "const": {
+                    "b1": {
+                        "foo": "abced"
+                    },
+                    "b2": 123.234433,
+                    "b3": ["a", "1", 222, null, [1, 2, 3], {
+                        "b33": "string"
+                    }]
+                }
+            },
+            "c": {
+                "const": ["c1", "c2", "c3"]
+            },
+            "d": {
+                "const": null
+            }
+        }
+    },
+    "tests": [{
+        "description": "",
+        "data": {
+            "a": 2,
+            "b": {
+                "b1": {
+                    "foo": "abced"
+                },
+                "b2": 123.234433,
+                "b3": ["a", "1", 222, null, [1, 2, 3], {
+                    "b33": "string"
+                }]
+            },
+            "c": ["c1", "c2", "c3"],
+            "d": null
+        },
+        "valid": true
+    }]
+}]

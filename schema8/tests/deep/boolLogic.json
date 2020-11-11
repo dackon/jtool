@@ -1,0 +1,57 @@
+[{
+    "description": "",
+    "schema": {
+        "allOf": [{
+            "type": "object",
+            "required": ["a", "b"]
+        }, {
+            "type": "object",
+            "properties": {
+                "a": {
+                    "type": "object"
+                },
+                "b": {
+                    "type": "object",
+                    "properties": {
+                        "b2": {
+                            "type": "array",
+                            "items": [{
+                                "type": "string"
+                            }, {
+                                "type": "number"
+                            }]
+                        }
+                    }
+                }
+            }
+        }],
+        "anyOf": [{
+            "type": "number"
+        }, {
+            "type": "array"
+        }, {
+            "type": "object"
+        }],
+        "not": {
+            "type": "number"
+        }
+    },
+    "tests": [{
+        "description": "",
+        "data": {
+            "a": {
+                "a1": 15,
+                "a2": [1, 3, 5],
+                "a3": "null"
+            },
+            "b": {
+                "b1": {
+                    "b11": "string"
+                },
+                "b2": ["string", 15, ["a", "b", "c"]]
+            },
+            "c": ["a", "b", "c"]
+        },
+        "valid": true
+    }]
+}]
