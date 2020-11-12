@@ -1,5 +1,5 @@
 # Introduction
-This project implemented JSON schema [draft2019-09 (draft-08)](https://json-schema.org/).
+This project implemented JSON schema [draft 2019-09 (draft-08)](https://json-schema.org/).
 
 # Limitations
 1. Doesn't support meta-shema, '$schema' and '$vocabulary'
