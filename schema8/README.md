@@ -15,7 +15,7 @@ This project implemented JSON schema [draft 2019-09 (draft-08)](https://json-sch
 # Other important things
 1. The default URL of schema is 'https://default.uri' if you do not have $id field in root schema.
 2. This implementation treats 0 as integer, 0.0 as float64, and 0 != 0.0
-3. Support http, https and file protocols to reference external schema. The host of file protocol URL must be 'localhost' or '127.0.0.1'. You can also register your own schema resolver, see the example in file 'schema_test.go'.
+3. Support http, https and file protocols to reference external schema. The host of file protocol URL must be '', 'localhost' or '127.0.0.1'. You can also register your own schema resolver, see the example in file 'schema_test.go'.
 
 # Howto
 ```golang
