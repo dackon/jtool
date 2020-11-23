@@ -32,7 +32,8 @@ func (ast *assertionMinLength) Valid(ctx context.Context, v *jvalue.V) error {
 	}
 
 	s, _ := v.GetString()
-	if len(s) >= ast.minLength {
+	r := []rune(s)
+	if len(r) >= ast.minLength {
 		return nil
 	}
 

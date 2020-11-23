@@ -32,7 +32,8 @@ func (ast *assertionMaxLength) Valid(ctx context.Context, v *jvalue.V) error {
 	}
 
 	s, _ := v.GetString()
-	if len(s) <= ast.maxLength {
+	r := []rune(s)
+	if len(r) <= ast.maxLength {
 		return nil
 	}
 

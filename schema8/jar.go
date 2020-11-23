@@ -48,6 +48,18 @@ func (j *jar) Add(s *schemaNode) error {
 	return nil
 }
 
+func (j *jar) AddSchemaJar(schemaJar *jar) error {
+	for k, v := range schemaJar.sm {
+		_, ok := j.sm[k]
+		if ok {
+			return errWithPath(fmt.Errorf("duplicated canonicalURI %s", k), v)
+		}
+		j.sm[k] = v
+	}
+	return nil
+
+}
+
 func (j *jar) Get(uri string) (*schemaNode, error) {
 	s, ok := j.sm[uri]
 	if ok {
@@ -59,13 +71,8 @@ func (j *jar) Get(uri string) (*schemaNode, error) {
 		if err == nil {
 			s, err := schema.schemaJar.Get(uri)
 			if err == nil {
-				for k, v := range schema.schemaJar.sm {
-					_, ok := j.sm[k]
-					if ok {
-						return nil, errWithPath(fmt.Errorf(
-							"duplicated canonicalURI %s", k), v)
-					}
-					j.sm[k] = v
+				if err = j.AddSchemaJar(schema.schemaJar); err != nil {
+					return nil, err
 				}
 				return s, nil
 			}
@@ -79,7 +86,6 @@ func (j *jar) Get(uri string) (*schemaNode, error) {
 
 	var node *schemaNode
 
-	fragment := u.Fragment
 	u.Fragment = ""
 
 	switch u.Scheme {
@@ -95,7 +101,7 @@ func (j *jar) Get(uri string) (*schemaNode, error) {
 		return nil, err
 	}
 
-	err = j.Add(node)
+	err = j.AddSchemaJar(node.schema.schemaJar)
 	if err != nil {
 		return nil, err
 	}
@@ -103,10 +109,6 @@ func (j *jar) Get(uri string) (*schemaNode, error) {
 	sn, err := node.schema.schemaJar.Get(uri)
 	if err != nil {
 		return nil, err
-	}
-
-	if fragment != "" {
-		j.Add(sn)
 	}
 
 	return sn, nil
@@ -184,7 +186,8 @@ func (j *jar) LinkRef() error {
 func (j *jar) debug() {
 	log.Printf("=========================JAR Contents=========================")
 	for k, v := range j.sm {
-		log.Printf("Jar::debug: Key is %s. schemaNode is %s.", k, v)
+		log.Printf("Jar::debug:==> Jar is %p. Key is %s. schemaNode is %s.",
+			j, k, v)
 	}
 	log.Printf("=======================JAR Contents End=======================")
 }
