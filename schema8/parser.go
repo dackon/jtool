@@ -30,7 +30,7 @@ func doParse(raw json.RawMessage, canonicalURL string) (
 	bu.Fragment = ""
 	defaultBaseURI = bu.String()
 
-	schema := &Schema{schemaJar: NewJar()}
+	schema := &Schema{schemaJar: newJar()}
 
 	switch v.JType {
 	case jutil.JTBoolean:

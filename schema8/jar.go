@@ -1,7 +1,6 @@
 package schema8
 
 import (
-	"encoding/json"
 	"fmt"
 	"io/ioutil"
 	"log"
@@ -14,22 +13,9 @@ type jar struct {
 	sm map[string]*schemaNode
 }
 
-func NewJar() *jar {
+// newJar ...
+func newJar() *jar {
 	return &jar{sm: make(map[string]*schemaNode)}
-}
-
-func (j *jar) Parse(raw json.RawMessage, canonicalURL string) (
-	*Schema, error) {
-	s, err := doParse(raw, canonicalURL)
-	if err != nil {
-		return nil, err
-	}
-
-	if err = j.Add(s.root); err != nil {
-		return nil, err
-	}
-
-	return s, nil
 }
 
 func (j *jar) Add(s *schemaNode) error {
@@ -38,10 +24,6 @@ func (j *jar) Add(s *schemaNode) error {
 	}
 
 	for _, u := range s.canonicalURIs {
-		_, ok := j.sm[u]
-		if ok {
-			return errWithPath(fmt.Errorf("duplicated canonicalURI %s", u), s)
-		}
 		j.sm[u] = s
 	}
 
@@ -50,10 +32,6 @@ func (j *jar) Add(s *schemaNode) error {
 
 func (j *jar) AddSchemaJar(schemaJar *jar) error {
 	for k, v := range schemaJar.sm {
-		_, ok := j.sm[k]
-		if ok {
-			return errWithPath(fmt.Errorf("duplicated canonicalURI %s", k), v)
-		}
 		j.sm[k] = v
 	}
 	return nil
@@ -64,6 +42,17 @@ func (j *jar) Get(uri string) (*schemaNode, error) {
 	s, ok := j.sm[uri]
 	if ok {
 		return s, nil
+	}
+
+	u, err := url.Parse(uri)
+	if err != nil {
+		return nil, fmt.Errorf("bad URL is %s. Err is %s", uri, err)
+	}
+	u.Fragment = ""
+
+	_, ok = j.sm[u.String()]
+	if ok {
+		return nil, fmt.Errorf("failed to find URI %s", uri)
 	}
 
 	if gResolverFunc != nil {
@@ -79,14 +68,7 @@ func (j *jar) Get(uri string) (*schemaNode, error) {
 		}
 	}
 
-	u, err := url.Parse(uri)
-	if err != nil {
-		return nil, fmt.Errorf("bad URL is %s. Err is %s", uri, err)
-	}
-
 	var node *schemaNode
-
-	u.Fragment = ""
 
 	switch u.Scheme {
 	case "http", "https":
