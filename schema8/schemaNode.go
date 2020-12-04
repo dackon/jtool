@@ -178,7 +178,7 @@ func (s *schemaNode) doMatch(ctx context.Context, jv *jvalue.V) *MatchInfo {
 			rs := s.getRecursiveRefSchema(mc.path)
 			newmp := newMatchPathNodeFromString(rs, "$recursiveRef")
 			mc.path = append(mc.path, newmp)
-			if rs.refSchema.doMatch(ctx, jv).Err != nil {
+			if rs.doMatch(ctx, jv).Err != nil {
 				return mc.mi
 			}
 		}
@@ -205,8 +205,7 @@ func (s *schemaNode) doMatch(ctx context.Context, jv *jvalue.V) *MatchInfo {
 
 func (s *schemaNode) getRecursiveRefSchema(arr []*matchPathNode) *schemaNode {
 	if !s.recursiveAnchor {
-		cu := s.baseURI + "#"
-		sn, err := s.schema.schemaJar.Get(cu)
+		sn, err := s.schema.schemaJar.Get(s.baseURI)
 		if err != nil {
 			panic(err)
 		}
@@ -219,8 +218,7 @@ func (s *schemaNode) getRecursiveRefSchema(arr []*matchPathNode) *schemaNode {
 			continue
 		}
 
-		cu := s.baseURI + "#"
-		sn, err := s.schema.schemaJar.Get(cu)
+		sn, err := n.node.schema.schemaJar.Get(n.node.baseURI)
 		if err != nil {
 			panic(err)
 		}

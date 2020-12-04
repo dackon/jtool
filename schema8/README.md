@@ -6,7 +6,6 @@ This project implemented JSON schema [draft 2019-09 (draft-08)](https://json-sch
 2. Doesn't support collecting annotations, applicator 'unevaluatedProperties' and 'unevaluatedItems'
 3. Doesn't support vocabulary for the contents of string-encoding data
 4. Doesn't support vocabulary for basic meta-data annotations
-5. Doesn't support match length of unicode code point string
 6. You must use the normalized URL, this implementation will **NOT** normalize it for you
 7. 'format' is assertion **ONLY**, you can register your own format to add new (or replace default) handler
 8. Supported output format: Flag (with the error location: keywordLocation, instanceLocation and absoluteKeywordLocation)
